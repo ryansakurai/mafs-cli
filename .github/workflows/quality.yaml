@@ -11,12 +11,14 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: jdx/mise-action@v3
+      - name: Setup Mise
+        uses: jdx/mise-action@v3
 
       - name: Install dependencies
-        run: mise run dependencies
+        run: poetry install
 
       - name: Type check
         run: mise run type-check
@@ -26,6 +28,20 @@ jobs:
 
       - name: Check code formatting
         run: mise run format-check
+
+      - name: Run tests
+        run: mise run test
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Mise
+        uses: jdx/mise-action@v3
+
+      - name: Install dependencies
+        run: poetry install
 
       - name: Run tests
         run: mise run test
