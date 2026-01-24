@@ -7,11 +7,15 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/blossy
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -24,13 +28,10 @@ jobs:
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@b12c8f6015dc215fe37bc154d4ad456dd3833c90 # v6.0.0
         env:
-          GITHUB_TOKEN: ${{ secrets.SEMENTIC_RELEASE_PAT }}
+          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_PAT }}
 
       - name: Build packages
         run: poetry build
 
       - name: Publish to PyPI
-        env:
-          name: pypi
-          url: https://pypi.org/p/blossy
         uses: pypa/gh-action-pypi-publish@ed0c53931b1dc9bd32cbe73a98c7f6766f8a527e # v1.13.0

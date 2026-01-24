@@ -13,6 +13,7 @@ alias = "deps"
 description = "Install dependencies"
 run = '''
 #!/usr/bin/env bash
+set -e
 
 echo "===> Generating lock..."
 poetry lock
@@ -25,12 +26,13 @@ poetry install
 description = "Check code formatting (for workflow)"
 run = '''
 #!/usr/bin/env bash
+set -e
 
-echo "===> Checking formatting checkers for source..."
+echo "===> Running formatting checkers for source..."
 poetry run black --check {{config_root}}/src
 poetry run isort --check {{config_root}}/src
 
-echo "===> Checking formatting checkers for tests..."
+echo "===> Running formatting checkers for tests..."
 poetry run black --check {{config_root}}/test
 poetry run isort --check {{config_root}}/test
 '''
@@ -40,6 +42,7 @@ alias = "type"
 description = "Run type checker"
 run = '''
 #!/usr/bin/env bash
+set -e
 
 echo "===> Running type checker for source..."
 poetry run pyright {{config_root}}/src
@@ -52,6 +55,7 @@ poetry run pyright {{config_root}}/test
 description = "Run linter"
 run = '''
 #!/usr/bin/env bash
+set -e
 
 echo "===> Running linter for source..."
 poetry run pylint {{config_root}}/src
@@ -64,6 +68,7 @@ poetry run pylint {{config_root}}/test
 description = "Run type checker and linter"
 run = '''
 #!/usr/bin/env bash
+set -e
 
 mise run type-check
 mise run lint
@@ -74,12 +79,13 @@ alias = "fmt"
 description = "Format code"
 run = '''
 #!/usr/bin/env bash
+set -e
 
-echo "===> Checking formatters for source..."
+echo "===> Running formatters for source..."
 poetry run black {{config_root}}/src
 poetry run isort {{config_root}}/src
 
-echo "===> Checking formatters for tests..."
+echo "===> Running formatters for tests..."
 poetry run black {{config_root}}/test
 poetry run isort {{config_root}}/test
 '''
@@ -88,6 +94,7 @@ poetry run isort {{config_root}}/test
 description = "Run tests"
 run = '''
 #!/usr/bin/env bash
+set -e
 
 echo "===> Running tests..."
 poetry run pytest {{config_root}}/test
@@ -98,6 +105,7 @@ alias = "testv"
 description = "Run tests with verbose output"
 run = '''
 #!/usr/bin/env bash
+set -e
 
 echo "===> Running tests..."
 poetry run pytest -vv {{config_root}}/test
@@ -107,6 +115,7 @@ poetry run pytest -vv {{config_root}}/test
 description = "Format, check and test"
 run = '''
 #!/usr/bin/env bash
+set -e
 
 mise run format
 mise run check
