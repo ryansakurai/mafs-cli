@@ -29,9 +29,6 @@ jobs:
 
       - name: Check code formatting
         run: mise run format-check
-
-      - name: Run tests
-        run: mise run test
   test:
     name: Tests
     runs-on: ubuntu-latest
