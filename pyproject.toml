@@ -1,6 +1,5 @@
 [project]
 name = "blossy"
-version = "7.1.0"
 description = "A lil' bud that helps you with stuff (it's a utility CLI)."
 authors = [{ name = "Ryan Sakurai", email = "ryansakurai03@gmail.com" }]
 readme = "README.md"
@@ -13,6 +12,7 @@ dependencies = [
     "platformdirs (>=4.5.1,<5.0.0)",
     "tomlkit (>=0.13.3,<0.14.0)",
 ]
+dynamic = ["version"]
 
 [project.urls]
 repository = "https://github.com/ravensakurai/blossy-cli"
@@ -22,10 +22,20 @@ blossy = "blossy.main:app"
 
 [tool.poetry]
 packages = [{ include = "blossy", from = "src" }]
+version = "0.0.0"
+
+[tool.poetry.requires-plugins]
+poetry-dynamic-versioning = { version = ">=1.0.0,<2.0.0", extras = ["plugin"] }
+
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+style = "semver"
+strict = true
 
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=2.0.0,<3.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
+build-backend = "poetry_dynamic_versioning.backend"
 
 [dependency-groups]
 dev = [
